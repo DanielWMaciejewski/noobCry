@@ -108,10 +108,8 @@ labelPassword.grid(column=0, row=7)
 #password input
 textPassword = Entry(window,width=50)
 textPassword.grid(column=1, row=7)
-textPassword.config(show = "*")
-
-
-
+textPassword.config(show = "*")#obscures password entry
+#Instructions
 labelLocation = Label(window, text="Encrypt a file and email yourself the key.")
 labelLocation.grid(column=1, row=9)#outputs message below entry fields
 
