@@ -2,13 +2,20 @@ import os, base64, smtplib, config
 from cryptography.fernet import Fernet
 from tkinter import *
 from os.path import join
+
 """
-ALTHOUGH THIS ISN'T OVERTLY MALWARE, IT COULD EASILY BE USED AS SUCH !PLEASE USE CAUTION WHEN ENCRYPTING FILES USING THIS SOFTWARE!!!!
 This program takes a file and it's location as inputs, and encrypts it using symmetric fernet encryption. It then sends the key to an e-mail SMTP server
 I will note that I only tested this on text files, but it should theoretically work on any file type.
-The guide(s) I used to create this: encrytion:https://www.youtube.com/watch?v=ScL07VJJOX4 email:https://www.youtube.com/watch?v=mP_Ln-Z9-XY
+
+The guides I used to create this:
+1)Encryption https://www.youtube.com/watch?v=ScL07VJJOX4 
+2)Email:https://www.youtube.com/watch?v=mP_Ln-Z9-XY
+
 It's apparent that Google has let their 'receive less safe mail' functionality degrade; the button was broken when I tried using it, but I still
 wanted to get my hands dirty on some light net-coding so I kept this in. It should theoretically work with an actual functioning SMTP server.
+
+Encrypting other people's files without their permission is illegal. This code is done as a project to explore the creation of maleware and is 
+ONLY for educational purposes. DO NOT USE THIS ILLEGALLY.
 """
 class noobCry:
     def __init__(self,fileName, key, location, encryptedFile,f):#initialize all of the variables in the Class
@@ -109,6 +116,7 @@ labelPassword.grid(column=0, row=7)
 textPassword = Entry(window,width=50)
 textPassword.grid(column=1, row=7)
 textPassword.config(show = "*")#obscures password entry
+
 #Instructions
 labelLocation = Label(window, text="Encrypt a file and email yourself the key.")
 labelLocation.grid(column=1, row=9)#outputs message below entry fields
@@ -134,6 +142,7 @@ def confirm():
     #call the function 'email()' and use smtp protocol to send the fernet key
     noobCry.email(email,password,SMTP,port,fernetKey)
 #End confirm()
+
 def close():
     exit()
 #End confirm()
